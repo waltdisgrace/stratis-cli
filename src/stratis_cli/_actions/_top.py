@@ -46,12 +46,15 @@ class TopActions():
         """
         proxy = get_object(TOP_OBJECT)
 
-        (_, rc, message) = Manager.Methods.CreatePool(
+        ((changed, _, _), rc, message) = Manager.Methods.CreatePool(
             proxy, {
                 'name': namespace.pool_name,
                 'redundancy': (True, 0),
                 'devices': namespace.blockdevs
             })
+
+        if not changed:
+            raise StratisCliEngineError(1, 'Pool already exists')
 
         if rc != StratisdErrors.OK:
             raise StratisCliEngineError(rc, message)
