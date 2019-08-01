@@ -57,7 +57,8 @@ class LogicalActions():
             get_object(pool_object_path), {'specs': namespace.fs_name})
 
         if not changed:
-            raise StratisCliEngineError(StratisdErrors.ALREADY_EXISTS, 'Filesystem already exists')
+            raise StratisCliEngineError(StratisdErrors.ALREADY_EXISTS,
+                                        'Filesystem already exists')
 
         if rc != StratisdErrors.OK:
             raise StratisCliEngineError(rc, message)

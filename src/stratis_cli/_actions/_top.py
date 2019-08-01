@@ -54,7 +54,8 @@ class TopActions():
             })
 
         if not changed:
-            raise StratisCliEngineError(StratisdErrors.ALREADY_EXISTS, 'Pool already exists')
+            raise StratisCliEngineError(StratisdErrors.ALREADY_EXISTS,
+                                        'Pool already exists')
 
         if rc != StratisdErrors.OK:
             raise StratisCliEngineError(rc, message)
