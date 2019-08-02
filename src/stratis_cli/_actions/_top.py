@@ -132,8 +132,13 @@ class TopActions():
                 'Name': namespace.pool_name
             }).require_unique_match(True).search(managed_objects))
 
-        (_, rc, message) = Pool.Methods.AddDataDevs(
+        (uuids, rc, message) = Pool.Methods.AddDataDevs(
             get_object(pool_object_path), {'devices': namespace.device})
+
+        if not namespace.device in uuids:
+            raise StratisCliEngineError(StratisdErrors.ALREADY_EXISTS,
+                                        'Data device is already registered with stratisd')
+
         if rc != StratisdErrors.OK:
             raise StratisCliEngineError(rc, message)
 
@@ -151,5 +156,6 @@ class TopActions():
 
         (_, rc, message) = Pool.Methods.AddCacheDevs(
             get_object(pool_object_path), {'devices': namespace.device})
+
         if rc != StratisdErrors.OK:
             raise StratisCliEngineError(rc, message)
