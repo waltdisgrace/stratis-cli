@@ -136,8 +136,9 @@ class TopActions():
             get_object(pool_object_path), {'devices': namespace.device})
 
         if not namespace.device in uuids:
-            raise StratisCliEngineError(StratisdErrors.ALREADY_EXISTS,
-                                        'Data device is already registered with stratisd')
+            raise StratisCliEngineError(
+                StratisdErrors.ALREADY_EXISTS,
+                'Data device is already registered with stratisd')
 
         if rc != StratisdErrors.OK:
             raise StratisCliEngineError(rc, message)
